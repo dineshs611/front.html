@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #00c896, #4facfe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .register-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 350px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        input:focus {
+            border-color: #00c896;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #00c896;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #00a97a;
+        }
+        .message {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: #00c896;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h2>Register</h2>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button onclick="register()">Register</button>
+        <div id="msg" class="message"></div>
+        <a href="login.html" class="back-link">⬅ Back to Login</a>
+    </div>
+
+    <script>
+        function register() {
+            let username = document.getElementById("username").value.trim();
+            let password = document.getElementById("password").value.trim();
+            let msg = document.getElementById("msg");
+
+            if (username === "" || password === "") {
+                msg.style.color = "red";
+                msg.textContent = "❌ Please fill in all fields!";
+                return;
+            }
+
+            if (localStorage.getItem(username)) {
+                msg.style.color = "red";
+                msg.textContent = "❌ Username already exists!";
+                return;
+            }
+
+            localStorage.setItem(username, JSON.stringify({ username, password }));
+
+            msg.style.color = "green";
+            msg.textContent = "✅ Registration Successful! Redirecting...";
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

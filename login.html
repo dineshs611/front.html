@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #4facfe, #00f2fe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 350px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        input:focus {
+            border-color: #4facfe;
+            outline: none;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .btn-login {
+            background-color: #4facfe;
+        }
+        .btn-login:hover {
+            background-color: #3a8dde;
+        }
+        .btn-register {
+            background-color: #00c896;
+        }
+        .btn-register:hover {
+            background-color: #00a97a;
+        }
+        .error-message {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <div class="btn-group">
+            <button class="btn-login" onclick="login()">Login</button>
+            <button class="btn-register" onclick="window.location.href='register.html'">Register</button>
+        </div>
+        <div id="error" class="error-message"></div>
+    </div>
+
+    <script>
+        function login() {
+            let username = document.getElementById("username").value.trim();
+            let password = document.getElementById("password").value.trim();
+            let errorMsg = document.getElementById("error");
+
+            let storedUser = localStorage.getItem(username);
+
+            if (storedUser) {
+                let userData = JSON.parse(storedUser);
+                if (userData.password === password) {
+                    errorMsg.style.color = "green";
+                    errorMsg.textContent = "✅ Login Successful!";
+                    // Redirect to dashboard or home page
+                    // window.location.href = "home.html";
+                } else {
+                    errorMsg.style.color = "red";
+                    errorMsg.textContent = "❌ Incorrect password!";
+                }
+            } else {
+                errorMsg.style.color = "red";
+                errorMsg.textContent = "❌ User not found! Please register.";
+            }
+        }
+    </script>
+</body>
+</html>
